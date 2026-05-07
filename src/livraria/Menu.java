@@ -2,6 +2,8 @@ package livraria;
 
 import java.util.Scanner;
 
+import livraria.util.Cores;
+
 public class Menu {
 
 	public static void main(String[] args) {
@@ -12,7 +14,7 @@ public class Menu {
 
 		while (true) {
 
-			System.out.println("******************************************");
+			System.out.println( Cores.TEXT_BLUE + Cores.ANSI_WHITE_BACKGROUND +"******************************************");
 			System.out.println("                                          ");
 			System.out.println("         REFÚGIO LITERÁRIO                ");
 			System.out.println("                                          ");
@@ -27,14 +29,14 @@ public class Menu {
 			System.out.println("                                          ");
 			System.out.println("******************************************");
 			System.out.println("Entre com a opção desejada:               ");
-			System.out.println("                                          ");
+			System.out.println("                                          " + Cores.TEXT_RESET);
 
 			opcao = leia.nextInt();
 
 		if (opcao == 0) {
-			System.out.println("\nLivraria Refúgio Literário "
-					+ "\nLer é a imaginação que te"
-					+ "\npermite andar por vários mundos");
+			System.out.println(Cores.TEXT_WHITE_BOLD + "\nLivraria Refúgio Literário                   "     
+					+ "\nLer é a imaginação que te                    "
+					+ "\npermite andar por vários mundos              ");
 			sobre();
 			leia.close();
 			System.exit(0);
@@ -75,10 +77,10 @@ public class Menu {
 	}
 }
 	public static void sobre() {
-		System.out.println("\n**************************************");
-		System.out.println("Projeto Desenvolvido por: Bruna Mendes");
+		System.out.println("\n*****************************************"     );
+		System.out.println("Projeto Desenvolvido por: Bruna Mendes"     );
 		System.out.println("Generation Brasil - brunam@generation.org");
 		System.out.println("github.com/bruna-dsmendes");
-		System.out.println("****************************************");
+		System.out.println("*****************************************" );
 	}
 }
