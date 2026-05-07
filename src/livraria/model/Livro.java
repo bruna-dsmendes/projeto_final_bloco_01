@@ -4,7 +4,7 @@ public class Livro extends item {
 	
 	private String autor;
 
-	public Livro(int id, String titulo, int tipo, float preco, int estoque) {
+	public Livro(int id, String titulo, int tipo, float preco, int estoque, String autor) {
 		super(id, titulo, tipo, preco, estoque);
 		this.autor = autor;
 	}
