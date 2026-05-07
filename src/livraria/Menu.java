@@ -45,7 +45,7 @@ public class Menu {
 				System.out.println();
 			}
 
-			if (opcao == 10) {
+			if (opcao == 0) {
 				System.out.println(Cores.TEXT_WHITE_BOLD + "\nLivraria Refúgio Literário                   "
 						+ "\nLer é a imaginação que te                    "
 						+ "\npermite andar por vários mundos              ");
