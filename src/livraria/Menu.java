@@ -28,9 +28,11 @@ public class Menu {
 			System.out.println("                                          ");
 			System.out.println("  1 - Cadastrar livro                     ");
 			System.out.println("  2 - Listar todos os livros da unidade   ");
-			System.out.println("  3 - Buscar livro                        ");
+			System.out.println("  3 - Buscar livro por ID                 ");
 			System.out.println("  4 - Atualizar informações               ");
-			System.out.println("  5 - Vendido (excluir)                   ");
+			System.out.println("  5 - Excluir (Fora de catalogo)          ");
+			System.out.println("  6 - Filtrar por faixa de preço          ");
+			System.out.println("  7 - Registrar Venda                     ");
 			System.out.println("  0 - Sair                                ");
 			System.out.println("                                          ");
 			System.out.println("******************************************");
@@ -41,8 +43,9 @@ public class Menu {
 				opcao = leia.nextInt();
 				leia.nextLine();
 			} catch (InputMismatchException e) {
+				System.out.println(Cores.TEXT_RED + "\nEntrada inválida! Por favor, digite um número correspondente ás opções do menu." + Cores.TEXT_RESET);
+				leia.nextLine();
 				opcao = -1;
-				System.out.println();
 			}
 
 			if (opcao == 0) {
@@ -58,16 +61,39 @@ public class Menu {
 			case 1:
 				System.out.println("Cadastrar livros\n\n");
 				System.out.println("Digite o Nome do Livro: ");
-				titulo = leia.nextLine();
+				titulo = leia.nextLine().trim().toUpperCase();
 
 				System.out.println("Digite o Autor do Livro: ");
-				autor = leia.nextLine();
+				autor = leia.nextLine().trim().toUpperCase();
 
-				System.out.println("Digite o Preço do Livro (R$): ");
-				preco = leia.nextFloat();
+				do {
+					try {
+						System.out.println("Digite o Preço do Livro (R$): ");
+						preco = leia.nextFloat();
+						if (preco <= 0) {
+							System.out.println(Cores.TEXT_RED + "O preço deve ser maior que zero!" + Cores.TEXT_RESET);
+						}
+					} catch (InputMismatchException e) {
+						System.out.println(Cores.TEXT_RED + "ERRO: Digite apenas números com vírgula (ex: 15,59)."
+								+ Cores.TEXT_RESET);
+						preco = 0;
+					}
+				} while (preco <= 0);
 
-				System.out.println("Digite o Estoque Inicial: ");
-				estoque = leia.nextInt();
+				do {
+					try {
+						System.out.println("Digite o Estoque Inicial: ");
+						estoque = leia.nextInt();
+						if (estoque < 0) {
+							System.out.println(Cores.TEXT_RED + "O estoque não pode ser negativo!" + Cores.TEXT_RESET);
+						}
+					} catch (InputMismatchException e) {
+						System.out.println(Cores.TEXT_RED + "ERRO: Digite apenas números inteiros!" + Cores.TEXT_RESET);
+						leia.nextLine();
+						estoque = -1;
+					}
+				} while (estoque < 0);
+				leia.nextLine();
 
 				tipo = 1;
 
@@ -96,7 +122,7 @@ public class Menu {
 
 				if (buscaProduto != null) {
 					leia.nextLine();
-					
+
 					System.out.println("Digite o Novo Nome do Livro: ");
 					titulo = leia.nextLine();
 
@@ -119,16 +145,33 @@ public class Menu {
 				break;
 
 			case 5:
-				System.out.println("Livro esgotado (apagar do estoque)\n\n");
+				System.out.println("Livro esgotado!)\n\n");
 				System.out.println("Digite o ID do Produto: ");
-                id = leia.nextInt();
-                produtos.deletar(id);
-                
+				id = leia.nextInt();
+				produtos.deletar(id);
+
 				break;
+				
+			case 6:
+			    System.out.println("Filtrar por Faixa de Preço\n");
+			    System.out.println("Preço Mínimo: ");
+			    float min = leia.nextFloat();
+			    System.out.println("Preço Máximo: ");
+			    float max = leia.nextFloat();
+			    produtos.filtrarPorPreco(min, max);
+			    break;
+			    
+			case 7:
+			    System.out.println("Registrar Venda\n");
+			    System.out.println("Digite o ID do Livro: ");
+			    id = leia.nextInt();
+			    System.out.println("Quantidade vendida: ");
+			    int qtdVenda = leia.nextInt();
+			    produtos.venderLivro(id, qtdVenda);
+			    break;
 
 			default:
-                System.out.println(Cores.TEXT_RED_BOLD + "\nOpção Inválida!\n" + Cores.TEXT_RESET);
-
+				System.out.println(Cores.TEXT_RED_BOLD + "\nOpção Inválida!\n" + Cores.TEXT_RESET);
 
 				break;
 

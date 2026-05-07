@@ -2,6 +2,7 @@ package livraria.controller;
 
 import java.util.ArrayList;
 
+import livraria.model.Livro;
 import livraria.model.item;
 import livraria.repository.Repository;
 
@@ -21,6 +22,48 @@ public class LivroController implements Repository {
 		}
 	}
 
+	public void buscarPorNomeOuAutor(String termo) {
+	    String termoBusca = termo.trim().toUpperCase();
+	    var listaFiltrada = listaLivros.stream()
+	        .filter(p -> ((Livro) p).getTitulo().toUpperCase().contains(termoBusca) || 
+	                     ((Livro) p).getAutor().toUpperCase().contains(termoBusca))
+	        .toList();
+
+	    if (listaFiltrada.isEmpty()) {
+	        System.out.println("\nNenhum livro encontrado com o termo: " + termo);
+	    } else {
+	        listaFiltrada.forEach(p -> p.visualizar());
+	    }
+	}
+	public void filtrarPorPreco(float min, float max) {
+	    listaLivros.stream()
+	        .filter(p -> p.getPreco() >= min && p.getPreco() <= max)
+	        .forEach(p -> p.visualizar());
+	}
+	
+	public void relatorioEstoqueBaixo() {
+	    System.out.println("\n--- ALERTA DE REPOSIÇÃO ---");
+	    listaLivros.stream()
+	        .filter(p -> p.getQuantidade() < 2)
+	        .forEach(p -> System.out.println("ID: " + p.getId() + " | Título: " + p.getTitulo() + " | Qtd: " + p.getQuantidade()));
+	
+	}
+	
+	public void venderLivro(int id, int quantidade) {
+	    var buscaProduto = buscarNaCollection(id);
+	    if (buscaProduto != null) {
+	        if (buscaProduto.getQuantidade() >= quantidade) {
+	            buscaProduto.setQuantidade(buscaProduto.getQuantidade() - quantidade);
+	            System.out.println("\nVenda realizada! Novo estoque: " + buscaProduto.getQuantidade());
+	        } else {
+	            System.out.println("\nEstoque insuficiente!");
+	        }
+	    } else {
+	        System.out.println("\nLivro não encontrado!");
+	    }
+	}
+	
+	
 	@Override
 	public void listarTodas() {
 		for (var produto : listaLivros) {

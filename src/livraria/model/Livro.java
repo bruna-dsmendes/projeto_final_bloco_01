@@ -24,4 +24,16 @@ public class Livro extends item {
 		
 	}
 
+	@Override
+	public int getQuantidade() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setQuantidade(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -74,4 +74,6 @@ public abstract class item {
         System.out.println("Preço: R$ " + this.preco);
         System.out.println("Estoque: " + this.estoque);
     }
+	public abstract int getQuantidade();
+	public abstract void setQuantidade(int i);
 }
