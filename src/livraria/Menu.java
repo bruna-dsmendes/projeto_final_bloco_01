@@ -79,7 +79,7 @@ public class Menu {
 						preco = 0;
 					}
 				} while (preco <= 0);
-
+			
 				do {
 					try {
 						System.out.println("Digite o Estoque Inicial: ");
@@ -162,12 +162,17 @@ public class Menu {
 			    break;
 			    
 			case 7:
-			    System.out.println("Registrar Venda\n");
+				System.out.println("Registrar Venda\n");
 			    System.out.println("Digite o ID do Livro: ");
 			    id = leia.nextInt();
 			    System.out.println("Quantidade vendida: ");
 			    int qtdVenda = leia.nextInt();
+			    leia.nextLine();
+			    
 			    produtos.venderLivro(id, qtdVenda);
+			    
+			    System.out.println("\nPressione Enter para continuar...");
+			    leia.nextLine(); 
 			    break;
 
 			default:

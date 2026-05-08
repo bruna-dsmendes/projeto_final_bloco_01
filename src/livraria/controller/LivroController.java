@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import livraria.model.Livro;
 import livraria.model.item;
 import livraria.repository.Repository;
+import livraria.util.Cores;
 
 public class LivroController implements Repository {
 
@@ -50,16 +51,25 @@ public class LivroController implements Repository {
 	}
 	
 	public void venderLivro(int id, int quantidade) {
-	    var buscaProduto = buscarNaCollection(id);
-	    if (buscaProduto != null) {
-	        if (buscaProduto.getQuantidade() >= quantidade) {
-	            buscaProduto.setQuantidade(buscaProduto.getQuantidade() - quantidade);
-	            System.out.println("\nVenda realizada! Novo estoque: " + buscaProduto.getQuantidade());
-	        } else {
-	            System.out.println("\nEstoque insuficiente!");
-	        }
-	    } else {
-	        System.out.println("\nLivro não encontrado!");
+		    var buscaProduto = buscarNaCollection(id);
+
+		    if (buscaProduto != null) {
+		        
+		        if (buscaProduto.getEstoque() >= quantidade) {
+		            
+		        	int novoEstoque = buscaProduto.getEstoque() - quantidade;
+		            buscaProduto.setEstoque(novoEstoque);
+		            
+		            System.out.println(Cores.TEXT_CYAN + "\nVENDA CONCLUÍDA!" + Cores.TEXT_RESET);
+		            System.out.println("Livro: " + buscaProduto.getTitulo());
+		            System.out.println("Quantidade restante: " + buscaProduto.getEstoque());
+		        } else {
+		            System.out.println(Cores.TEXT_RED + "\nEstoque insuficiente! Disponível: " 
+		                               + buscaProduto.getEstoque() + Cores.TEXT_RESET);
+		        }
+		    } else {
+		        System.out.println(Cores.TEXT_RED + "\nLivro com ID " + id + " não encontrado!" + Cores.TEXT_RESET);
+		   
 	    }
 	}
 	
